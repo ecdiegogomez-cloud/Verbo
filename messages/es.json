@@ -1,0 +1,83 @@
+{
+    "metadata": {
+        "title": "Verbo — Discursos de Boda Personalizados",
+        "description": "Crea un discurso de boda emotivo y personalizado en minutos."
+    },
+    "header": {
+        "brand": "Verbo",
+        "cta": "Crear Tu Discurso"
+    },
+    "hero": {
+        "title": "Encuentra las Palabras",
+        "titleHighlight": "Entrega el Momento",
+        "subtitle": "Un discurso de boda personalizado, creado a partir de tu historia. Emotivo, autentico e inconfundiblemente tuyo.",
+        "cta": "Crear Tu Discurso"
+    },
+    "howItWorks": {
+        "title": "Como Funciona",
+        "step1Title": "Comparte Tu Historia",
+        "step1Desc": "Cuentanos sobre tu relacion con la pareja, tus recuerdos favoritos y el tono que deseas.",
+        "step2Title": "Lo Escribimos",
+        "step2Desc": "Un discurso unico y personalizado se elabora a partir de tus detalles, nunca una plantilla generica.",
+        "step3Title": "Hazlo Tuyo",
+        "step3Desc": "Lee, ajusta lo que desees y descarga tu discurso listo para entregar."
+    },
+    "cta": {
+        "title": "Listo Para Comenzar?",
+        "subtitle": "Tu discurso perfecto esta a solo unos detalles de distancia.",
+        "button": "Empezar a Escribir"
+    },
+    "footer": {
+        "brand": "Verbo",
+        "rights": "Todos los derechos reservados."
+    },
+    "generator": {
+        "title": "Crea Tu Discurso",
+        "subtitle": "Comparte algunos detalles y elaboraremos un discurso personalizado para ti.",
+        "relationshipLabel": "Tu Relacion con la Pareja",
+        "relationshipPlaceholder": "Selecciona tu rol...",
+        "roles": {
+            "bestMan": "Padrino",
+            "maidOfHonor": "Dama de Honor",
+            "father": "Padre de la Novia/Novio",
+            "mother": "Madre de la Novia/Novio",
+            "sibling": "Hermano/a",
+            "friend": "Amigo/a Cercano/a",
+            "other": "Otro"
+        },
+        "coupleNamesLabel": "Nombres de la Pareja",
+        "coupleNamesPlaceholder": "ej. Maria y Carlos",
+        "toneLabel": "Tono del Discurso",
+        "tonePlaceholder": "Selecciona un tono...",
+        "tones": {
+            "heartfelt": "Emotivo",
+            "funny": "Ligero",
+            "formal": "Formal",
+            "mix": "Mezcla Equilibrada"
+        },
+        "anecdotesLabel": "Recuerdos y Detalles",
+        "anecdotesPlaceholder": "Comparte tus historias favoritas, como conociste a la pareja, momentos especiales o cualquier cosa que quieras incluir...",
+        "durationLabel": "Extension del Discurso",
+        "durations": {
+            "short": "Corto (~2 min)",
+            "medium": "Medio (~4 min)",
+            "long": "Completo (~6 min)"
+        },
+        "speechLangLabel": "Idioma del Discurso",
+        "speechLangs": {
+            "en": "Ingles",
+            "es": "Espanol"
+        },
+        "generate": "Generar Discurso",
+        "generating": "Escribiendo tu discurso..."
+    },
+    "result": {
+        "title": "Tu Discurso",
+        "copy": "Copiar",
+        "copied": "Copiado",
+        "download": "Descargar",
+        "regenerate": "Regenerar",
+        "newSpeech": "Comenzar de Nuevo",
+        "tip": "Recomendamos practicar en voz alta varias veces antes del gran dia."
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "metadata": {
+        "title": "Verbo — Personalized Wedding Speeches",
+        "description": "Craft a heartfelt, personalized wedding speech in minutes."
+    },
+    "header": {
+        "brand": "Verbo",
+        "cta": "Create Your Speech"
+    },
+    "hero": {
+        "title": "Find the Words",
+        "titleHighlight": "Deliver the Moment",
+        "subtitle": "A personalized wedding speech, crafted from your story. Heartfelt, authentic, and unmistakably yours.",
+        "cta": "Create Your Speech"
+    },
+    "howItWorks": {
+        "title": "How It Works",
+        "step1Title": "Share Your Story",
+        "step1Desc": "Tell us about your relationship to the couple, your favourite memories, and the tone you'd like.",
+        "step2Title": "We Write It",
+        "step2Desc": "A unique, personalized speech is crafted from your details — never a generic template.",
+        "step3Title": "Make It Yours",
+        "step3Desc": "Read through, make any adjustments, and download your speech ready to deliver."
+    },
+    "cta": {
+        "title": "Ready to Begin?",
+        "subtitle": "Your perfect speech is just a few details away.",
+        "button": "Start Writing"
+    },
+    "footer": {
+        "brand": "Verbo",
+        "rights": "All rights reserved."
+    },
+    "generator": {
+        "title": "Create Your Speech",
+        "subtitle": "Share a few details and we'll craft a personalized speech for you.",
+        "relationshipLabel": "Your Relationship to the Couple",
+        "relationshipPlaceholder": "Select your role...",
+        "roles": {
+            "bestMan": "Best Man",
+            "maidOfHonor": "Maid of Honour",
+            "father": "Father of the Bride/Groom",
+            "mother": "Mother of the Bride/Groom",
+            "sibling": "Sibling",
+            "friend": "Close Friend",
+            "other": "Other"
+        },
+        "coupleNamesLabel": "Names of the Couple",
+        "coupleNamesPlaceholder": "e.g. Sarah & James",
+        "toneLabel": "Speech Tone",
+        "tonePlaceholder": "Select a tone...",
+        "tones": {
+            "heartfelt": "Heartfelt",
+            "funny": "Lighthearted",
+            "formal": "Formal",
+            "mix": "Balanced Mix"
+        },
+        "anecdotesLabel": "Memories & Details",
+        "anecdotesPlaceholder": "Share your favourite stories, how you met the couple, special moments, or anything you'd like included...",
+        "durationLabel": "Speech Length",
+        "durations": {
+            "short": "Short (~2 min)",
+            "medium": "Medium (~4 min)",
+            "long": "Full (~6 min)"
+        },
+        "speechLangLabel": "Speech Language",
+        "speechLangs": {
+            "en": "English",
+            "es": "Spanish"
+        },
+        "generate": "Generate Speech",
+        "generating": "Writing your speech..."
+    },
+    "result": {
+        "title": "Your Speech",
+        "copy": "Copy",
+        "copied": "Copied",
+        "download": "Download",
+        "regenerate": "Regenerate",
+        "newSpeech": "Start Over",
+        "tip": "We recommend practising out loud a few times before the big day."
+    }
+}
