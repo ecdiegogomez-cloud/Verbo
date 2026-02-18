@@ -11,6 +11,8 @@ interface SpeechFormProps {
 interface FormData {
     relationship: string;
     coupleNames: string;
+    speakerName: string;
+    personality: string;
     tone: string;
     anecdotes: string;
     duration: string;
@@ -23,6 +25,8 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
     const [form, setForm] = useState<FormData>({
         relationship: '',
         coupleNames: '',
+        speakerName: '',
+        personality: '',
         tone: '',
         anecdotes: '',
         duration: 'medium',
@@ -30,6 +34,7 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
     });
 
     const roles = ['bestMan', 'maidOfHonor', 'father', 'mother', 'sibling', 'friend', 'other'];
+    const personalities = ['extroverted', 'reflective', 'funny', 'romantic', 'direct'];
     const tones = ['heartfelt', 'funny', 'formal', 'mix'];
     const durations = ['short', 'medium', 'long'];
     const speechLangs = ['en', 'es'];
@@ -74,6 +79,35 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
                     value={form.coupleNames}
                     onChange={(e) => handleChange('coupleNames', e.target.value)}
                 />
+            </div>
+
+            {/* Speaker Name */}
+            <div className="form-group">
+                <label className="form-label">{t('speakerNameLabel')}</label>
+                <input
+                    type="text"
+                    className="form-input"
+                    placeholder={t('speakerNamePlaceholder')}
+                    value={form.speakerName}
+                    onChange={(e) => handleChange('speakerName', e.target.value)}
+                />
+            </div>
+
+            {/* Personality */}
+            <div className="form-group">
+                <label className="form-label">{t('personalityLabel')}</label>
+                <select
+                    className="form-select"
+                    value={form.personality}
+                    onChange={(e) => handleChange('personality', e.target.value)}
+                >
+                    <option value="">{t('personalityPlaceholder')}</option>
+                    {personalities.map((p) => (
+                        <option key={p} value={p}>
+                            {t(`personalities.${p}`)}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             {/* Tone */}

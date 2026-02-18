@@ -10,6 +10,8 @@ import SpeechResult from '@/components/SpeechResult';
 interface FormData {
     relationship: string;
     coupleNames: string;
+    speakerName: string;
+    personality: string;
     tone: string;
     anecdotes: string;
     duration: string;

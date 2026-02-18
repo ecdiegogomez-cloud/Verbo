@@ -47,6 +47,17 @@
         },
         "coupleNamesLabel": "Nombres de la Pareja",
         "coupleNamesPlaceholder": "ej. Maria y Carlos",
+        "speakerNameLabel": "Tu Nombre",
+        "speakerNamePlaceholder": "ej. Miguel",
+        "personalityLabel": "Como Te Describirias?",
+        "personalityPlaceholder": "Selecciona tu personalidad...",
+        "personalities": {
+            "extroverted": "Extrovertido y Energico",
+            "reflective": "Tranquilo y Reflexivo",
+            "funny": "Gracioso y Sarcastico",
+            "romantic": "Romantico y Sensible",
+            "direct": "Directo y Practico"
+        },
         "toneLabel": "Tono del Discurso",
         "tonePlaceholder": "Selecciona un tono...",
         "tones": {

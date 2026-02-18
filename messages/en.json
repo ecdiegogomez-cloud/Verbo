@@ -47,6 +47,17 @@
         },
         "coupleNamesLabel": "Names of the Couple",
         "coupleNamesPlaceholder": "e.g. Sarah & James",
+        "speakerNameLabel": "Your Name",
+        "speakerNamePlaceholder": "e.g. Michael",
+        "personalityLabel": "How Would You Describe Yourself?",
+        "personalityPlaceholder": "Select your personality...",
+        "personalities": {
+            "extroverted": "Outgoing & Energetic",
+            "reflective": "Calm & Reflective",
+            "funny": "Funny & Sarcastic",
+            "romantic": "Romantic & Sensitive",
+            "direct": "Straightforward & Practical"
+        },
         "toneLabel": "Speech Tone",
         "tonePlaceholder": "Select a tone...",
         "tones": {
