@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Copy, Check, Download, RefreshCw, PlusCircle } from 'lucide-react';
 
 interface SpeechResultProps {
     speech: string;
@@ -36,22 +35,18 @@ export default function SpeechResult({ speech, onRegenerate, onNewSpeech, isLoad
     return (
         <div className="result-container animate-fade-in">
             <div className="result-header">
-                <h2 className="result-title">💍 {t('title')}</h2>
+                <h2 className="result-title">{t('title')}</h2>
                 <div className="result-actions">
                     <button className="btn-icon" onClick={handleCopy}>
-                        {copied ? <Check size={16} /> : <Copy size={16} />}
                         {copied ? t('copied') : t('copy')}
                     </button>
                     <button className="btn-icon" onClick={handleDownload}>
-                        <Download size={16} />
                         {t('download')}
                     </button>
                     <button className="btn-icon" onClick={onRegenerate} disabled={isLoading}>
-                        <RefreshCw size={16} className={isLoading ? 'animate-spin' : ''} />
                         {t('regenerate')}
                     </button>
                     <button className="btn-icon" onClick={onNewSpeech}>
-                        <PlusCircle size={16} />
                         {t('newSpeech')}
                     </button>
                 </div>
@@ -60,7 +55,7 @@ export default function SpeechResult({ speech, onRegenerate, onNewSpeech, isLoad
             <div className="result-text">{speech}</div>
 
             <div className="result-tip">
-                💡 {t('tip')}
+                {t('tip')}
             </div>
         </div>
     );
