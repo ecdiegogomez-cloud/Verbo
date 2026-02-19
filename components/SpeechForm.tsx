@@ -12,9 +12,7 @@ interface FormData {
     relationship: string;
     coupleNames: string;
     speakerName: string;
-    personality: string;
     tone: string;
-    anecdotes: string;
     duration: string;
     speechLang: string;
 }
@@ -26,16 +24,13 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
         relationship: '',
         coupleNames: '',
         speakerName: '',
-        personality: '',
         tone: '',
-        anecdotes: '',
         duration: 'medium',
         speechLang: 'en',
     });
 
     const roles = ['bestMan', 'maidOfHonor', 'father', 'mother', 'sibling', 'friend', 'other'];
-    const personalities = ['extroverted', 'reflective', 'funny', 'romantic', 'direct'];
-    const tones = ['heartfelt', 'funny', 'formal', 'mix'];
+    const tones = ['heartfelt', 'funny', 'formal', 'mix', 'witty', 'straightforward', 'celebratory'];
     const durations = ['short', 'medium', 'long'];
     const speechLangs = ['en', 'es'];
 
@@ -93,23 +88,6 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
                 />
             </div>
 
-            {/* Personality */}
-            <div className="form-group">
-                <label className="form-label">{t('personalityLabel')}</label>
-                <select
-                    className="form-select"
-                    value={form.personality}
-                    onChange={(e) => handleChange('personality', e.target.value)}
-                >
-                    <option value="">{t('personalityPlaceholder')}</option>
-                    {personalities.map((p) => (
-                        <option key={p} value={p}>
-                            {t(`personalities.${p}`)}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
             {/* Tone */}
             <div className="form-group">
                 <label className="form-label">{t('toneLabel')}</label>
@@ -130,17 +108,6 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
                         </div>
                     ))}
                 </div>
-            </div>
-
-            {/* Anecdotes */}
-            <div className="form-group">
-                <label className="form-label">{t('anecdotesLabel')}</label>
-                <textarea
-                    className="form-textarea"
-                    placeholder={t('anecdotesPlaceholder')}
-                    value={form.anecdotes}
-                    onChange={(e) => handleChange('anecdotes', e.target.value)}
-                />
             </div>
 
             {/* Duration + Speech Language */}

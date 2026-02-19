@@ -10,7 +10,7 @@
     "hero": {
         "title": "Find the Words",
         "titleHighlight": "Deliver the Moment",
-        "subtitle": "A personalized wedding speech, crafted from your story. Heartfelt, authentic, and unmistakably yours.",
+        "subtitle": "You bring the memories, we write the speech. No templates, no blank pages.",
         "cta": "Create Your Speech"
     },
     "howItWorks": {
@@ -33,7 +33,7 @@
     },
     "generator": {
         "title": "Create Your Speech",
-        "subtitle": "Share a few details and we'll craft a personalized speech for you.",
+        "subtitle": "Answer a few quick questions and get a speech that sounds like you.",
         "relationshipLabel": "Your Relationship to the Couple",
         "relationshipPlaceholder": "Select your role...",
         "roles": {
@@ -49,25 +49,17 @@
         "coupleNamesPlaceholder": "e.g. Sarah & James",
         "speakerNameLabel": "Your Name",
         "speakerNamePlaceholder": "e.g. Michael",
-        "personalityLabel": "How Would You Describe Yourself?",
-        "personalityPlaceholder": "Select your personality...",
-        "personalities": {
-            "extroverted": "Outgoing & Energetic",
-            "reflective": "Calm & Reflective",
-            "funny": "Funny & Sarcastic",
-            "romantic": "Romantic & Sensitive",
-            "direct": "Straightforward & Practical"
-        },
         "toneLabel": "Speech Tone",
         "tonePlaceholder": "Select a tone...",
         "tones": {
             "heartfelt": "Heartfelt",
             "funny": "Lighthearted",
             "formal": "Formal",
-            "mix": "Balanced Mix"
+            "mix": "Balanced Mix",
+            "witty": "Witty",
+            "straightforward": "Straightforward",
+            "celebratory": "Celebratory"
         },
-        "anecdotesLabel": "Memories & Details",
-        "anecdotesPlaceholder": "Share your favourite stories, how you met the couple, special moments, or anything you'd like included...",
         "durationLabel": "Speech Length",
         "durations": {
             "short": "Short (~2 min)",
@@ -79,8 +71,18 @@
             "en": "English",
             "es": "Spanish"
         },
-        "generate": "Generate Speech",
+        "generate": "Continue to Interview",
         "generating": "Writing your speech..."
+    },
+    "interview": {
+        "title": "Let's Get the Stories",
+        "subtitle": "Answer a few questions so we can write something real.",
+        "progress": "Question {current} of {total}",
+        "inputPlaceholder": "Type your answer… (Enter to send)",
+        "send": "Send",
+        "retry": "Try again",
+        "continueButton": "Generate My Speech →",
+        "generating": "Crafting your speech…"
     },
     "result": {
         "title": "Your Speech",

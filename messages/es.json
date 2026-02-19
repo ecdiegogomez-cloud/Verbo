@@ -10,21 +10,21 @@
     "hero": {
         "title": "Encuentra las Palabras",
         "titleHighlight": "Entrega el Momento",
-        "subtitle": "Un discurso de boda personalizado, creado a partir de tu historia. Emotivo, autentico e inconfundiblemente tuyo.",
+        "subtitle": "Tú pones los recuerdos, nosotros escribimos el discurso. Sin plantillas, sin páginas en blanco.",
         "cta": "Crear Tu Discurso"
     },
     "howItWorks": {
-        "title": "Como Funciona",
+        "title": "Cómo Funciona",
         "step1Title": "Comparte Tu Historia",
-        "step1Desc": "Cuentanos sobre tu relacion con la pareja, tus recuerdos favoritos y el tono que deseas.",
+        "step1Desc": "Cuéntanos sobre tu relación con la pareja, tus recuerdos favoritos y el tono que deseas.",
         "step2Title": "Lo Escribimos",
-        "step2Desc": "Un discurso unico y personalizado se elabora a partir de tus detalles, nunca una plantilla generica.",
+        "step2Desc": "Un discurso único y personalizado se elabora a partir de tus detalles, nunca una plantilla genérica.",
         "step3Title": "Hazlo Tuyo",
         "step3Desc": "Lee, ajusta lo que desees y descarga tu discurso listo para entregar."
     },
     "cta": {
-        "title": "Listo Para Comenzar?",
-        "subtitle": "Tu discurso perfecto esta a solo unos detalles de distancia.",
+        "title": "¿Listo Para Comenzar?",
+        "subtitle": "Tu discurso perfecto está a solo unos detalles de distancia.",
         "button": "Empezar a Escribir"
     },
     "footer": {
@@ -33,8 +33,8 @@
     },
     "generator": {
         "title": "Crea Tu Discurso",
-        "subtitle": "Comparte algunos detalles y elaboraremos un discurso personalizado para ti.",
-        "relationshipLabel": "Tu Relacion con la Pareja",
+        "subtitle": "Responde unas preguntas rápidas y recibe un discurso que suena como tú.",
+        "relationshipLabel": "Tu Relación con la Pareja",
         "relationshipPlaceholder": "Selecciona tu rol...",
         "roles": {
             "bestMan": "Padrino",
@@ -46,29 +46,21 @@
             "other": "Otro"
         },
         "coupleNamesLabel": "Nombres de la Pareja",
-        "coupleNamesPlaceholder": "ej. Maria y Carlos",
+        "coupleNamesPlaceholder": "ej. María y Carlos",
         "speakerNameLabel": "Tu Nombre",
         "speakerNamePlaceholder": "ej. Miguel",
-        "personalityLabel": "Como Te Describirias?",
-        "personalityPlaceholder": "Selecciona tu personalidad...",
-        "personalities": {
-            "extroverted": "Extrovertido y Energico",
-            "reflective": "Tranquilo y Reflexivo",
-            "funny": "Gracioso y Sarcastico",
-            "romantic": "Romantico y Sensible",
-            "direct": "Directo y Practico"
-        },
         "toneLabel": "Tono del Discurso",
         "tonePlaceholder": "Selecciona un tono...",
         "tones": {
             "heartfelt": "Emotivo",
             "funny": "Ligero",
             "formal": "Formal",
-            "mix": "Mezcla Equilibrada"
+            "mix": "Mezcla Equilibrada",
+            "witty": "Ingenioso",
+            "straightforward": "Directo",
+            "celebratory": "Celebratorio"
         },
-        "anecdotesLabel": "Recuerdos y Detalles",
-        "anecdotesPlaceholder": "Comparte tus historias favoritas, como conociste a la pareja, momentos especiales o cualquier cosa que quieras incluir...",
-        "durationLabel": "Extension del Discurso",
+        "durationLabel": "Extensión del Discurso",
         "durations": {
             "short": "Corto (~2 min)",
             "medium": "Medio (~4 min)",
@@ -76,11 +68,21 @@
         },
         "speechLangLabel": "Idioma del Discurso",
         "speechLangs": {
-            "en": "Ingles",
-            "es": "Espanol"
+            "en": "Inglés",
+            "es": "Español"
         },
-        "generate": "Generar Discurso",
+        "generate": "Continuar a la Entrevista",
         "generating": "Escribiendo tu discurso..."
+    },
+    "interview": {
+        "title": "Cuéntame las Historias",
+        "subtitle": "Responde algunas preguntas para que podamos escribir algo real.",
+        "progress": "Pregunta {current} de {total}",
+        "inputPlaceholder": "Escribe tu respuesta… (Enter para enviar)",
+        "send": "Enviar",
+        "retry": "Intentar de nuevo",
+        "continueButton": "Generar Mi Discurso →",
+        "generating": "Creando tu discurso…"
     },
     "result": {
         "title": "Tu Discurso",
@@ -89,6 +91,6 @@
         "download": "Descargar",
         "regenerate": "Regenerar",
         "newSpeech": "Comenzar de Nuevo",
-        "tip": "Recomendamos practicar en voz alta varias veces antes del gran dia."
+        "tip": "Recomendamos practicar en voz alta varias veces antes del gran día."
     }
 }

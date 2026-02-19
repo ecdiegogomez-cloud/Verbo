@@ -860,6 +860,297 @@ body {
 }
 
 /* ======================== */
+/*     INTERVIEW CHAT       */
+/* ======================== */
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.interview-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--background-card);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 0 50px rgba(212, 175, 55, 0.07), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Progress */
+.interview-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--background);
+}
+
+.interview-progress-label {
+  font-size: 0.72rem;
+  color: var(--primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.interview-progress-bar {
+  flex: 1;
+  height: 2px;
+  background: var(--surface-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.interview-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* Messages */
+.interview-messages {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 320px;
+  max-height: 460px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.interview-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.interview-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.interview-messages::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 2px;
+}
+
+.interview-bubble-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  animation: fadeInUp 0.25s ease-out forwards;
+}
+
+.bubble-user {
+  flex-direction: row-reverse;
+}
+
+.bubble-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+.interview-bubble {
+  max-width: 82%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.bubble-ai-inner {
+  background: var(--surface-alt);
+  border: 1px solid var(--surface-border);
+  color: var(--text-secondary);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble-user-inner {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--background);
+  font-weight: 400;
+  border-bottom-right-radius: 4px;
+}
+
+/* Typing dots */
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+/* Input */
+.interview-input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--surface-border);
+  background: var(--background);
+}
+
+.interview-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--surface-alt);
+  border: 1px solid var(--surface-border);
+  color: var(--foreground);
+  font-size: 0.92rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.interview-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.interview-input::placeholder {
+  color: var(--text-muted);
+}
+
+.interview-input:disabled {
+  opacity: 0.5;
+}
+
+.interview-send {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  color: var(--background);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
+}
+
+.interview-send:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.35);
+}
+
+.interview-send:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Error */
+.interview-error {
+  margin: 0 20px 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.interview-retry {
+  font-size: 0.8rem;
+  background: none;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.interview-retry:hover {
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* Complete CTA */
+.interview-complete {
+  padding: 24px;
+  border-top: 1px solid var(--surface-border);
+  display: flex;
+  justify-content: center;
+  background: var(--background);
+}
+
+.interview-cta {
+  padding: 16px 48px;
+  font-size: 0.9rem;
+}
+
+/* ======================== */
+/*    GENERATING SPINNER    */
+/* ======================== */
+
+.generating-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 80px 32px;
+}
+
+.generating-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--surface-border);
+  border-top-color: var(--primary);
+  animation: spin 0.9s linear infinite;
+}
+
+.generating-label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ======================== */
 /*       RESPONSIVE         */
 /* ======================== */
 
