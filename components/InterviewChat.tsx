@@ -6,6 +6,7 @@ import { ChatMessage, MAX_AI_TURNS, transcriptToAnecdotes } from '@/lib/intervie
 
 interface InterviewFormData {
     relationship: string;
+    relationshipTarget: string;
     coupleNames: string;
     speakerName: string;
     tone: string;

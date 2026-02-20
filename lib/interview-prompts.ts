@@ -1,5 +1,6 @@
 export interface InterviewFormData {
     relationship: string;
+    relationshipTarget?: string;
     coupleNames: string;
     speakerName: string;
     tone: string;
@@ -15,29 +16,32 @@ export interface ChatMessage {
 export const MAX_AI_TURNS = 6;
 
 export function buildInterviewSystemPrompt(formData: InterviewFormData): string {
-    const { relationship, coupleNames, speakerName, tone, speechLang } = formData;
+    const { relationship, relationshipTarget, coupleNames, speakerName, tone, speechLang } = formData;
     const speakerRef = speakerName?.trim() || (speechLang === 'es' ? 'el orador' : 'the speaker');
     const lang = speechLang || 'en';
 
     if (lang === 'es') {
-        return buildSpanishInterviewPrompt(relationship, coupleNames, speakerRef, tone);
+        return buildSpanishInterviewPrompt(relationship, coupleNames, speakerRef, tone, relationshipTarget);
     }
-    return buildEnglishInterviewPrompt(relationship, coupleNames, speakerRef, tone);
+    return buildEnglishInterviewPrompt(relationship, coupleNames, speakerRef, tone, relationshipTarget);
 }
 
 function buildEnglishInterviewPrompt(
     relationship: string,
     coupleNames: string,
     speakerName: string,
-    tone: string
+    tone: string,
+    relationshipTarget?: string
 ): string {
     const toneHint = TONE_HINTS_EN[tone] || 'warm and genuine';
+    const baseRole = ROLE_LABELS_EN[relationship] || relationship;
+    const roleLabel = relationshipTarget ? `${baseRole} of ${relationshipTarget}` : baseRole;
 
     return `You are conducting a warm, professional pre-speech interview. Your role is similar to a skilled therapist or documentary interviewer — you ask precise questions that help people recall specific, vivid memories rather than generic feelings.
 
 CONTEXT:
 - Speaker: ${speakerName}
-- Their role: ${ROLE_LABELS_EN[relationship] || relationship}
+- Their role: ${roleLabel}
 - Couple: ${coupleNames}
 - Speech tone goal: ${toneHint}
 
@@ -76,15 +80,18 @@ function buildSpanishInterviewPrompt(
     relationship: string,
     coupleNames: string,
     speakerName: string,
-    tone: string
+    tone: string,
+    relationshipTarget?: string
 ): string {
     const toneHint = TONE_HINTS_ES[tone] || 'cálido y genuino';
+    const baseRole = ROLE_LABELS_ES[relationship] || relationship;
+    const roleLabel = relationshipTarget ? `${baseRole} de ${relationshipTarget}` : baseRole;
 
     return `Estás conduciendo una entrevista cálida y profesional antes de escribir el discurso. Tu rol es similar al de un terapeuta hábil o un entrevistador de documental — haces preguntas precisas que ayudan a las personas a recordar memorias específicas y vívidas, no sentimientos genéricos.
 
 CONTEXTO:
 - Orador/a: ${speakerName}
-- Su rol: ${ROLE_LABELS_ES[relationship] || relationship}
+- Su rol: ${roleLabel}
 - Pareja: ${coupleNames}
 - Tono objetivo del discurso: ${toneHint}
 

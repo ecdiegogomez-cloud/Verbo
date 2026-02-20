@@ -45,6 +45,8 @@
             "friend": "Amigo/a Cercano/a",
             "other": "Otro"
         },
+        "relationshipTargetLabel": "{role} de...",
+        "relationshipTargetHint": "¿De quién eres más cercano/a?",
         "coupleNamesLabel": "Nombres de la Pareja",
         "coupleNamesPlaceholder": "ej. María y Carlos",
         "speakerNameLabel": "Tu Nombre",
@@ -71,6 +73,8 @@
             "en": "Inglés",
             "es": "Español"
         },
+        "sectionAboutYou": "Sobre Ti",
+        "sectionYourSpeech": "Tu Discurso",
         "generate": "Continuar a la Entrevista",
         "generating": "Escribiendo tu discurso..."
     },

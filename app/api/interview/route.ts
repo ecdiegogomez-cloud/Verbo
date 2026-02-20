@@ -90,7 +90,14 @@ export async function POST(request: NextRequest) {
         }
 
         const chat = model.startChat({ history });
-        const result = await chat.sendMessageStream(lastMessage.content);
+
+        // If this is the last turn, hint the AI to close the interview
+        const isLastTurn = aiTurnCount === MAX_AI_TURNS - 1;
+        const messageToSend = isLastTurn
+            ? `${lastMessage.content}\n\n[SYSTEM NOTE: This is the speaker's final answer. Do NOT ask another question. Respond with a brief, warm closing line acknowledging their answers and letting them know you have everything you need to write a great speech.]`
+            : lastMessage.content;
+
+        const result = await chat.sendMessageStream(messageToSend);
 
         const encoder = new TextEncoder();
         const stream = new ReadableStream({

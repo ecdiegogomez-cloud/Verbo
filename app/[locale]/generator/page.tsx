@@ -10,6 +10,7 @@ import InterviewChat from '@/components/InterviewChat';
 
 interface FormData {
     relationship: string;
+    relationshipTarget: string;
     coupleNames: string;
     speakerName: string;
     tone: string;

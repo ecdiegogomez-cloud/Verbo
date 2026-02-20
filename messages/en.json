@@ -45,6 +45,8 @@
             "friend": "Close Friend",
             "other": "Other"
         },
+        "relationshipTargetLabel": "{role} of...",
+        "relationshipTargetHint": "Who are you closest to?",
         "coupleNamesLabel": "Names of the Couple",
         "coupleNamesPlaceholder": "e.g. Sarah & James",
         "speakerNameLabel": "Your Name",
@@ -71,6 +73,8 @@
             "en": "English",
             "es": "Spanish"
         },
+        "sectionAboutYou": "About You",
+        "sectionYourSpeech": "Your Speech",
         "generate": "Continue to Interview",
         "generating": "Writing your speech..."
     },

@@ -591,12 +591,48 @@ body {
 .speech-form {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 36px;
   background: var(--background-card);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
-  padding: 40px;
+  padding: 48px;
   box-shadow: 0 0 50px rgba(212, 175, 55, 0.07), 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.speech-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+/* Form sections */
+.form-section {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-section-title {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--primary);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.25), transparent 60%);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: bottom left;
 }
 
 .form-group {
@@ -604,41 +640,34 @@ body {
   flex-direction: column;
   gap: 8px;
   position: relative;
-  padding-bottom: 32px;
-}
-
-.form-group::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.12), transparent);
-}
-
-.form-group:last-child::after {
-  display: none;
 }
 
 .form-label {
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.82rem;
+  font-weight: 400;
   color: var(--primary);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  font-family: var(--font-heading);
 }
 
 .form-label::before {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--primary), transparent);
+  content: '◇';
+  font-size: 0.55rem;
+  color: var(--primary);
+  opacity: 0.6;
   flex-shrink: 0;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  margin-top: -2px;
 }
 
 .form-select,
@@ -646,21 +675,29 @@ body {
 .form-textarea {
   padding: 14px 18px;
   border-radius: 10px;
-  background: var(--background);
+  background: rgba(12, 10, 9, 0.6);
   border: 1px solid var(--surface-border);
   color: var(--foreground);
   font-size: 0.95rem;
   font-family: inherit;
-  transition: all 0.3s;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   outline: none;
   width: 100%;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.form-select::placeholder,
+.form-input::placeholder,
+.form-textarea::placeholder {
+  font-style: italic;
+  color: var(--text-muted);
 }
 
 .form-select:focus,
 .form-input:focus,
 .form-textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-glow), inset 0 0 12px rgba(212, 175, 55, 0.06);
+  box-shadow: 0 0 0 3px var(--primary-glow), inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .form-select {
@@ -721,7 +758,8 @@ body {
 .radio-label:hover {
   border-color: rgba(212, 175, 55, 0.35);
   color: var(--foreground);
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 12px rgba(212, 175, 55, 0.1);
 }
 
 .radio-option input[type="radio"]:checked + .radio-label {
@@ -729,8 +767,7 @@ body {
   border-color: var(--primary);
   color: var(--background);
   font-weight: 600;
-  transform: scale(1.02);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 2px 16px rgba(212, 175, 55, 0.2);
 }
 
 .btn-generate {
@@ -752,7 +789,7 @@ body {
 }
 
 .btn-generate:not(:disabled) {
-  animation: goldPulse 3s ease-in-out infinite;
+  box-shadow: var(--shadow-gold);
 }
 
 .btn-generate:hover:not(:disabled) {
@@ -779,6 +816,80 @@ body {
   opacity: 0.3;
   cursor: not-allowed;
 }
+
+/* Relationship Target Pills */
+.relationship-target-group {
+  display: flex;
+  gap: 12px;
+}
+
+.relationship-target-option {
+  flex: 1;
+  position: relative;
+}
+
+.relationship-target-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.relationship-target-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: var(--font-heading);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  letter-spacing: 0.03em;
+  text-align: center;
+}
+
+.relationship-target-label:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  color: var(--foreground);
+  transform: translateY(-1px);
+}
+
+.relationship-target-option input[type="radio"]:checked + .relationship-target-label {
+  border-color: var(--primary);
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--primary);
+  font-weight: 500;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* Field Reveal Animation */
+.field-reveal {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.3s ease;
+}
+
+.field-reveal--visible {
+  max-height: 200px;
+  opacity: 1;
+}
+
+/* Staggered fade-in for form groups */
+.form-section .form-group {
+  opacity: 0;
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.form-section .form-group:nth-child(2) { animation-delay: 0.05s; }
+.form-section .form-group:nth-child(3) { animation-delay: 0.1s; }
+.form-section .form-group:nth-child(4) { animation-delay: 0.15s; }
+.form-section .form-group:nth-child(5) { animation-delay: 0.2s; }
 
 /* ======================== */
 /*       SPEECH RESULT      */
@@ -1188,7 +1299,12 @@ body {
   }
 
   .speech-form {
-    padding: 24px;
+    padding: 28px 20px;
+  }
+
+  .relationship-target-group {
+    flex-direction: column;
+    gap: 8px;
   }
 
   .form-row {

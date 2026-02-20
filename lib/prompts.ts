@@ -71,6 +71,7 @@ const ROLE_APPROACH: Record<string, Record<string, string>> = {
 
 export interface SpeechInput {
     relationship: string;
+    relationshipTarget?: string;
     coupleNames: string;
     speakerName?: string;
     tone: string;
@@ -94,8 +95,17 @@ export function buildPrompt(input: SpeechInput): string {
     const lang = input.speechLang || 'en';
     const wordRange = DURATION_WORDS[input.duration] || DURATION_WORDS.medium;
     const toneDesc = TONE_DESCRIPTIONS[lang]?.[input.tone] || TONE_DESCRIPTIONS.en.mix;
-    const roleLabel = ROLE_LABELS[lang]?.[input.relationship] || input.relationship;
-    const roleApproach = ROLE_APPROACH[lang]?.[input.relationship] || ROLE_APPROACH[lang]?.other || '';
+    const baseRoleLabel = ROLE_LABELS[lang]?.[input.relationship] || input.relationship;
+    const roleLabel = input.relationshipTarget
+        ? `${baseRoleLabel} ${lang === 'es' ? 'de' : 'of'} ${input.relationshipTarget}`
+        : baseRoleLabel;
+    const baseRoleApproach = ROLE_APPROACH[lang]?.[input.relationship] || ROLE_APPROACH[lang]?.other || '';
+    const roleApproach = input.relationshipTarget
+        ? baseRoleApproach.replace(
+            /the groom's|the bride's|del novio|de la novia|la novia\/novio|the bride\/groom/gi,
+            input.relationshipTarget + (lang === 'es' ? '' : "'s")
+          )
+        : baseRoleApproach;
     const speakerName = input.speakerName?.trim() || '';
     const exampleSpeech = getExampleForTone(input.tone, lang);
 
