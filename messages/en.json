@@ -76,7 +76,19 @@
         "sectionAboutYou": "About You",
         "sectionYourSpeech": "Your Speech",
         "generate": "Continue to Interview",
-        "generating": "Writing your speech..."
+        "generating": "Writing your speech...",
+        "chatQuestionRole": "Who are you to the couple?",
+        "chatQuestionCouple": "Who's getting married?",
+        "chatPlaceholderCouple": "e.g. Sarah & James",
+        "chatQuestionTarget": "As {role}, who are you closest to — {name1} or {name2}?",
+        "chatQuestionSpeaker": "What's your name?",
+        "chatPlaceholderSpeaker": "e.g. Michael",
+        "chatQuestionTone": "What vibe do you want your speech to have?",
+        "chatQuestionDuration": "How long should your speech be?",
+        "chatQuestionLanguage": "In which language?",
+        "chatQuestionComplete": "Perfect {name}. Now tell me your stories.",
+        "chatContinue": "Continue",
+        "chatStartInterview": "Start Interview"
     },
     "interview": {
         "title": "Let's Get the Stories",

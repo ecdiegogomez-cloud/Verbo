@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
 interface SpeechFormProps {
@@ -17,6 +17,14 @@ interface FormData {
     duration: string;
     speechLang: string;
 }
+
+interface ChatMessage {
+    id: string;
+    role: 'assistant' | 'user';
+    content: string;
+}
+
+type ChatStep = 'relationship' | 'coupleNames' | 'relationshipTarget' | 'speakerName' | 'tone' | 'duration' | 'language' | 'complete';
 
 function parseNames(coupleNames: string): [string, string] | null {
     const trimmed = coupleNames.trim();
@@ -42,31 +50,104 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
         speechLang: 'en',
     });
 
+    const [currentStep, setCurrentStep] = useState<ChatStep>('relationship');
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [inputValue, setInputValue] = useState('');
+    const [showOptions, setShowOptions] = useState(true);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
     const roles = ['bestMan', 'maidOfHonor', 'father', 'mother', 'sibling', 'friend', 'other'];
     const tones = ['heartfelt', 'funny', 'formal', 'mix', 'witty', 'straightforward', 'celebratory'];
     const durations = ['short', 'medium', 'long'];
     const speechLangs = ['en', 'es'];
 
     const parsedNames = useMemo(() => parseNames(form.coupleNames), [form.coupleNames]);
-    const showTarget = !!form.relationship && parsedNames !== null;
+    const showTargetStep = form.relationship && parsedNames !== null;
 
-    const handleChange = (field: keyof FormData, value: string) => {
-        setForm((prev) => {
-            const next = { ...prev, [field]: value };
-            // Clear relationshipTarget if names become unparseable or relationship cleared
-            if (field === 'coupleNames' || field === 'relationship') {
-                const names = field === 'coupleNames' ? parseNames(value) : parsedNames;
-                const rel = field === 'relationship' ? value : prev.relationship;
-                if (!rel || !names) {
-                    next.relationshipTarget = '';
-                } else if (names && prev.relationshipTarget &&
-                    prev.relationshipTarget !== names[0] && prev.relationshipTarget !== names[1]) {
-                    // Names changed, old target no longer matches
-                    next.relationshipTarget = '';
-                }
-            }
-            return next;
-        });
+    const steps: ChatStep[] = ['relationship', 'coupleNames'];
+    if (showTargetStep) steps.push('relationshipTarget');
+    steps.push('speakerName', 'tone', 'duration', 'language', 'complete');
+
+    const currentStepIndex = steps.indexOf(currentStep);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages, showOptions]);
+
+    useEffect(() => {
+        if (showOptions && (currentStep === 'coupleNames' || currentStep === 'speakerName')) {
+            inputRef.current?.focus();
+        }
+    }, [showOptions, currentStep]);
+
+    const addMessage = (role: 'assistant' | 'user', content: string) => {
+        const newMessage: ChatMessage = {
+            id: Date.now().toString() + Math.random(),
+            role,
+            content,
+        };
+        setMessages((prev) => [...prev, newMessage]);
+    };
+
+    const handleRelationshipSelect = (value: string) => {
+        addMessage('user', t(`roles.${value}`));
+        setForm((prev) => ({ ...prev, relationship: value }));
+        setCurrentStep('coupleNames');
+        setShowOptions(false);
+        setTimeout(() => setShowOptions(true), 300);
+    };
+
+    const handleCoupleNamesSubmit = () => {
+        if (parsedNames) {
+            addMessage('user', form.coupleNames);
+            setCurrentStep(showTargetStep ? 'relationshipTarget' : 'speakerName');
+            setShowOptions(false);
+            setTimeout(() => setShowOptions(true), 300);
+        }
+    };
+
+    const handleRelationshipTargetSelect = (value: string) => {
+        addMessage('user', value);
+        setForm((prev) => ({ ...prev, relationshipTarget: value }));
+        setCurrentStep('speakerName');
+        setShowOptions(false);
+        setTimeout(() => setShowOptions(true), 300);
+    };
+
+    const handleSpeakerNameSubmit = () => {
+        if (inputValue.trim()) {
+            addMessage('user', inputValue);
+            setForm((prev) => ({ ...prev, speakerName: inputValue }));
+            setCurrentStep('tone');
+            setInputValue('');
+            setShowOptions(false);
+            setTimeout(() => setShowOptions(true), 300);
+        }
+    };
+
+    const handleToneSelect = (value: string) => {
+        addMessage('user', t(`tones.${value}`));
+        setForm((prev) => ({ ...prev, tone: value }));
+        setCurrentStep('duration');
+        setShowOptions(false);
+        setTimeout(() => setShowOptions(true), 300);
+    };
+
+    const handleDurationSelect = (value: string) => {
+        addMessage('user', t(`durations.${value}`));
+        setForm((prev) => ({ ...prev, duration: value }));
+        setCurrentStep('language');
+        setShowOptions(false);
+        setTimeout(() => setShowOptions(true), 300);
+    };
+
+    const handleLanguageSelect = (value: string) => {
+        addMessage('user', t(`speechLangs.${value}`));
+        setForm((prev) => ({ ...prev, speechLang: value }));
+        setCurrentStep('complete');
+        setShowOptions(false);
+        setTimeout(() => setShowOptions(true), 300);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -74,167 +155,188 @@ export default function SpeechForm({ onGenerate, isLoading }: SpeechFormProps) {
         onGenerate(form);
     };
 
-    const needsTarget = showTarget;
-    const isValid = form.relationship && form.coupleNames.trim() && form.tone &&
-        (!needsTarget || form.relationshipTarget);
+    const getAssistantMessage = (): string => {
+        switch (currentStep) {
+            case 'relationship':
+                return t('chatQuestionRole');
+            case 'coupleNames':
+                return t('chatQuestionCouple');
+            case 'relationshipTarget':
+                return t('chatQuestionTarget', {
+                    role: t(`roles.${form.relationship}`),
+                    name1: parsedNames?.[0] || '',
+                    name2: parsedNames?.[1] || '',
+                });
+            case 'speakerName':
+                return t('chatQuestionSpeaker');
+            case 'tone':
+                return t('chatQuestionTone');
+            case 'duration':
+                return t('chatQuestionDuration');
+            case 'language':
+                return t('chatQuestionLanguage');
+            case 'complete':
+                return t('chatQuestionComplete', { name: form.speakerName || '' });
+            default:
+                return '';
+        }
+    };
 
     return (
-        <form className="speech-form" onSubmit={handleSubmit}>
-            {/* Section: About You */}
-            <fieldset className="form-section">
-                <legend className="form-section-title">{t('sectionAboutYou')}</legend>
+        <div className="chat-form-container">
+            <form className="chat-form" onSubmit={handleSubmit}>
+                <div className="chat-messages">
+                    {messages.map((msg) => (
+                        <div
+                            key={msg.id}
+                            className={`chat-message-bubble ${msg.role === 'assistant' ? 'assistant' : 'user'}`}
+                        >
+                            {msg.content}
+                        </div>
+                    ))}
 
-                {/* Relationship */}
-                <div className="form-group">
-                    <label className="form-label">{t('relationshipLabel')}</label>
-                    <select
-                        className="form-select"
-                        value={form.relationship}
-                        onChange={(e) => handleChange('relationship', e.target.value)}
-                    >
-                        <option value="">{t('relationshipPlaceholder')}</option>
-                        {roles.map((role) => (
-                            <option key={role} value={role}>
-                                {t(`roles.${role}`)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+                    {/* Current assistant message */}
+                    <div className="chat-message-bubble assistant">
+                        {getAssistantMessage()}
+                    </div>
 
-                {/* Couple Names */}
-                <div className="form-group">
-                    <label className="form-label">{t('coupleNamesLabel')}</label>
-                    <input
-                        type="text"
-                        className="form-input"
-                        placeholder={t('coupleNamesPlaceholder')}
-                        value={form.coupleNames}
-                        onChange={(e) => handleChange('coupleNames', e.target.value)}
-                    />
-                </div>
-
-                {/* Relationship Target — conditional */}
-                <div className={`field-reveal ${showTarget ? 'field-reveal--visible' : ''}`}>
-                    {showTarget && parsedNames && (
-                        <div className="form-group">
-                            <label className="form-label">
-                                {t('relationshipTargetLabel', { role: t(`roles.${form.relationship}`) })}
-                            </label>
-                            <p className="form-hint">{t('relationshipTargetHint')}</p>
-                            <div className="relationship-target-group">
-                                {parsedNames.map((name) => (
-                                    <div key={name} className="relationship-target-option">
-                                        <input
-                                            type="radio"
-                                            id={`target-${name}`}
-                                            name="relationshipTarget"
-                                            value={name}
-                                            checked={form.relationshipTarget === name}
-                                            onChange={(e) => handleChange('relationshipTarget', e.target.value)}
-                                        />
-                                        <label htmlFor={`target-${name}`} className="relationship-target-label">
-                                            {name}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Show options after assistant message */}
+                    {showOptions && currentStep === 'relationship' && (
+                        <div className="chat-options-bubbles">
+                            {roles.map((role) => (
+                                <button
+                                    key={role}
+                                    type="button"
+                                    className="chat-option-bubble"
+                                    onClick={() => handleRelationshipSelect(role)}
+                                >
+                                    {t(`roles.${role}`)}
+                                </button>
+                            ))}
                         </div>
                     )}
-                </div>
 
-                {/* Speaker Name */}
-                <div className="form-group">
-                    <label className="form-label">{t('speakerNameLabel')}</label>
-                    <input
-                        type="text"
-                        className="form-input"
-                        placeholder={t('speakerNamePlaceholder')}
-                        value={form.speakerName}
-                        onChange={(e) => handleChange('speakerName', e.target.value)}
-                    />
-                </div>
-            </fieldset>
+                    {showOptions && currentStep === 'coupleNames' && (
+                        <div className="chat-input-wrapper">
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                className="chat-input-field"
+                                placeholder={t('chatPlaceholderCouple')}
+                                value={form.coupleNames}
+                                onChange={(e) => setForm((prev) => ({ ...prev, coupleNames: e.target.value }))}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleCoupleNamesSubmit();
+                                }}
+                            />
+                            <button
+                                type="button"
+                                className="chat-send-button"
+                                onClick={handleCoupleNamesSubmit}
+                                disabled={!parsedNames}
+                            >
+                                {t('chatContinue')}
+                            </button>
+                        </div>
+                    )}
 
-            {/* Section: Your Speech */}
-            <fieldset className="form-section">
-                <legend className="form-section-title">{t('sectionYourSpeech')}</legend>
+                    {showOptions && currentStep === 'relationshipTarget' && parsedNames && (
+                        <div className="chat-options-bubbles">
+                            {parsedNames.map((name) => (
+                                <button
+                                    key={name}
+                                    type="button"
+                                    className="chat-option-bubble"
+                                    onClick={() => handleRelationshipTargetSelect(name)}
+                                >
+                                    {name}
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
-                {/* Tone */}
-                <div className="form-group">
-                    <label className="form-label">{t('toneLabel')}</label>
-                    <div className="form-radio-group">
-                        {tones.map((tone) => (
-                            <div key={tone} className="radio-option">
-                                <input
-                                    type="radio"
-                                    id={`tone-${tone}`}
-                                    name="tone"
-                                    value={tone}
-                                    checked={form.tone === tone}
-                                    onChange={(e) => handleChange('tone', e.target.value)}
-                                />
-                                <label htmlFor={`tone-${tone}`} className="radio-label">
+                    {showOptions && currentStep === 'speakerName' && (
+                        <div className="chat-input-wrapper">
+                            <input
+                                ref={inputRef}
+                                type="text"
+                                className="chat-input-field"
+                                placeholder={t('chatPlaceholderSpeaker')}
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') handleSpeakerNameSubmit();
+                                }}
+                            />
+                            <button
+                                type="button"
+                                className="chat-send-button"
+                                onClick={handleSpeakerNameSubmit}
+                                disabled={!inputValue.trim()}
+                            >
+                                {t('chatContinue')}
+                            </button>
+                        </div>
+                    )}
+
+                    {showOptions && currentStep === 'tone' && (
+                        <div className="chat-options-bubbles">
+                            {tones.map((tone) => (
+                                <button
+                                    key={tone}
+                                    type="button"
+                                    className="chat-option-bubble"
+                                    onClick={() => handleToneSelect(tone)}
+                                >
                                     {t(`tones.${tone}`)}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
-                {/* Duration + Speech Language */}
-                <div className="form-row">
-                    <div className="form-group">
-                        <label className="form-label">{t('durationLabel')}</label>
-                        <div className="form-radio-group">
+                    {showOptions && currentStep === 'duration' && (
+                        <div className="chat-options-bubbles">
                             {durations.map((dur) => (
-                                <div key={dur} className="radio-option">
-                                    <input
-                                        type="radio"
-                                        id={`dur-${dur}`}
-                                        name="duration"
-                                        value={dur}
-                                        checked={form.duration === dur}
-                                        onChange={(e) => handleChange('duration', e.target.value)}
-                                    />
-                                    <label htmlFor={`dur-${dur}`} className="radio-label">
-                                        {t(`durations.${dur}`)}
-                                    </label>
-                                </div>
+                                <button
+                                    key={dur}
+                                    type="button"
+                                    className="chat-option-bubble"
+                                    onClick={() => handleDurationSelect(dur)}
+                                >
+                                    {t(`durations.${dur}`)}
+                                </button>
                             ))}
                         </div>
-                    </div>
+                    )}
 
-                    <div className="form-group">
-                        <label className="form-label">{t('speechLangLabel')}</label>
-                        <div className="form-radio-group">
+                    {showOptions && currentStep === 'language' && (
+                        <div className="chat-options-bubbles">
                             {speechLangs.map((lang) => (
-                                <div key={lang} className="radio-option">
-                                    <input
-                                        type="radio"
-                                        id={`lang-${lang}`}
-                                        name="speechLang"
-                                        value={lang}
-                                        checked={form.speechLang === lang}
-                                        onChange={(e) => handleChange('speechLang', e.target.value)}
-                                    />
-                                    <label htmlFor={`lang-${lang}`} className="radio-label">
-                                        {t(`speechLangs.${lang}`)}
-                                    </label>
-                                </div>
+                                <button
+                                    key={lang}
+                                    type="button"
+                                    className="chat-option-bubble"
+                                    onClick={() => handleLanguageSelect(lang)}
+                                >
+                                    {t(`speechLangs.${lang}`)}
+                                </button>
                             ))}
                         </div>
-                    </div>
-                </div>
-            </fieldset>
+                    )}
 
-            {/* Submit */}
-            <button
-                type="submit"
-                className="btn-generate"
-                disabled={!isValid || isLoading}
-            >
-                {isLoading ? t('generating') : t('generate')}
-            </button>
-        </form>
+                    {showOptions && currentStep === 'complete' && (
+                        <button
+                            type="submit"
+                            className="chat-submit-final"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? t('generating') : t('chatStartInterview')}
+                        </button>
+                    )}
+
+                    <div ref={messagesEndRef} />
+                </div>
+            </form>
+        </div>
     );
 }

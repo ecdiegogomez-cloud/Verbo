@@ -2,7 +2,7 @@ import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Inter, Cormorant_Garamond, Raleway, Great_Vibes } from 'next/font/google';
+import { Inter, Cormorant_Garamond, Raleway, Great_Vibes, Allura } from 'next/font/google';
 import '../globals.css';
 
 const inter = Inter({
@@ -28,6 +28,12 @@ const greatVibes = Great_Vibes({
     weight: ['400'],
 });
 
+const allura = Allura({
+    variable: '--font-allura',
+    subsets: ['latin'],
+    weight: ['400'],
+});
+
 type Props = {
     children: React.ReactNode;
     params: Promise<{ locale: string }>;
@@ -48,7 +54,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
     return (
         <html lang={locale}>
-            <body className={`${inter.variable} ${cormorant.variable} ${raleway.variable} ${greatVibes.variable}`}>
+            <body className={`${inter.variable} ${cormorant.variable} ${raleway.variable} ${greatVibes.variable} ${allura.variable}`}>
                 <NextIntlClientProvider messages={messages}>
                     {children}
                 </NextIntlClientProvider>

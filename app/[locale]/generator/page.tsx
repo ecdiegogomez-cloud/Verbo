@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, use } from 'react';
 import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SpeechForm from '@/components/SpeechForm';
+import ConversationalForm from '@/components/ConversationalForm';
 import SpeechResult from '@/components/SpeechResult';
 import InterviewChat from '@/components/InterviewChat';
 
@@ -20,7 +20,8 @@ interface FormData {
 
 type Phase = 'form' | 'interview' | 'result';
 
-export default function GeneratorPage() {
+export default function GeneratorPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = use(params);
     const t = useTranslations('generator');
     const ti = useTranslations('interview');
 
@@ -125,9 +126,9 @@ export default function GeneratorPage() {
                         </p>
                     </div>
 
-                    {/* Fase 1 — Form */}
+                    {/* Fase 1 — Conversational Form */}
                     {phase === 'form' && (
-                        <SpeechForm onGenerate={handleFormSubmit} isLoading={false} />
+                        <ConversationalForm onGenerate={handleFormSubmit} isLoading={false} locale={locale} />
                     )}
 
                     {/* Fase 2 — Interview */}

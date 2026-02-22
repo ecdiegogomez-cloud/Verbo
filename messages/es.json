@@ -76,7 +76,19 @@
         "sectionAboutYou": "Sobre Ti",
         "sectionYourSpeech": "Tu Discurso",
         "generate": "Continuar a la Entrevista",
-        "generating": "Escribiendo tu discurso..."
+        "generating": "Escribiendo tu discurso...",
+        "chatQuestionRole": "¿Quién eres tú para la pareja?",
+        "chatQuestionCouple": "¿Quién se está casando?",
+        "chatPlaceholderCouple": "ej. María y Carlos",
+        "chatQuestionTarget": "Como {role}, ¿de quién eres más cercano — {name1} o {name2}?",
+        "chatQuestionSpeaker": "¿Cómo te llamas?",
+        "chatPlaceholderSpeaker": "ej. Miguel",
+        "chatQuestionTone": "¿Qué vibe quieres que tenga tu discurso?",
+        "chatQuestionDuration": "¿Qué tan largo quieres que sea tu discurso?",
+        "chatQuestionLanguage": "¿En qué idioma?",
+        "chatQuestionComplete": "Perfecto {name}. Ahora cuéntame tus historias.",
+        "chatContinue": "Continuar",
+        "chatStartInterview": "Comenzar Entrevista"
     },
     "interview": {
         "title": "Cuéntame las Historias",
