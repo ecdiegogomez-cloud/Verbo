@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
             model: MODEL_NAME,
             systemInstruction: buildInterviewSystemPrompt(formData),
             generationConfig: {
-                temperature: 0.8,
+                temperature: 0.6,
                 topP: 0.92,
             },
         });

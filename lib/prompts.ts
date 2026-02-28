@@ -1,5 +1,20 @@
 import { getExampleForTone } from './examples';
 
+/**
+ * Type alias for the getExampleForTone function
+ */
+type ExampleFunction = (tone: string, lang: string) => string | null;
+
+/**
+ * Gets an example speech for the specified tone and language
+ * Used to provide a reference for tone and rhythm in the generated speech
+ * @param tone - The tone category (heartfelt, funny, formal, mix, witty, straightforward, celebratory)
+ * @param lang - The language code (en, es)
+ * @returns An example speech matching the tone and language
+ */
+// Alias for the getExampleForTone function from examples.ts
+const _getExampleForTone: ExampleFunction = getExampleForTone;
+
 const DURATION_WORDS: Record<string, { min: number; max: number }> = {
     short: { min: 200, max: 350 },
     medium: { min: 400, max: 600 },
@@ -69,28 +84,55 @@ const ROLE_APPROACH: Record<string, Record<string, string>> = {
     },
 };
 
+/**
+ * Input data for generating a wedding speech
+ */
 export interface SpeechInput {
+    /** The speaker's relationship to the couple (bestMan, maidOfHonor, father, mother, sibling, friend, other) */
     relationship: string;
+    /** Specific person in the couple the speech is about (e.g., groom for bestMan, bride for father) */
     relationshipTarget?: string;
+    /** Names of the couple getting married */
     coupleNames: string;
+    /** Optional name of the speaker/person giving the speech */
     speakerName?: string;
+    /** Desired tone of the speech (heartfelt, funny, formal, mix, witty, straightforward, celebratory) */
     tone: string;
+    /** Stories and memories about the couple to include in the speech */
     anecdotes: string;
+    /** Duration category (short, medium, long) */
     duration: string;
+    /** Language for the generated speech (en, es) */
     speechLang: string;
 }
 
+/**
+ * Parameters for building the speech generation prompt
+ */
 interface PromptParams {
+    /** The label for the speaker's role (e.g., "best man", "padrino de la novia") */
     roleLabel: string;
+    /** Instruction on how to approach the relationship in the speech */
     roleApproach: string;
+    /** Formatted names of the couple */
     coupleNames: string;
+    /** Name of the speaker */
     speakerName: string;
+    /** Description of the desired tone */
     toneDesc: string;
+    /** Word count range for the speech */
     wordRange: { min: number; max: number };
+    /** Stories and anecdotes provided by the user */
     anecdotes: string;
+    /** Optional example speech to reference for tone/rhythm */
     exampleSpeech: string | null;
 }
 
+/**
+ * Builds the complete prompt for wedding speech generation
+ * @param input - The speech input data including relationship, tone, anecdotes, etc.
+ * @returns The formatted prompt string to send to the AI
+ */
 export function buildPrompt(input: SpeechInput): string {
     const lang = input.speechLang || 'en';
     const wordRange = DURATION_WORDS[input.duration] || DURATION_WORDS.medium;
@@ -107,7 +149,7 @@ export function buildPrompt(input: SpeechInput): string {
           )
         : baseRoleApproach;
     const speakerName = input.speakerName?.trim() || '';
-    const exampleSpeech = getExampleForTone(input.tone, lang);
+    const exampleSpeech = _getExampleForTone(input.tone, lang);
 
     const params: PromptParams = {
         roleLabel,
@@ -127,6 +169,11 @@ export function buildPrompt(input: SpeechInput): string {
     return buildEnglishPrompt(params);
 }
 
+/**
+ * Builds an English-language wedding speech prompt
+ * @param p - Prompt parameters including role, approach, tone, word count, anecdotes, etc.
+ * @returns The formatted English prompt string
+ */
 function buildEnglishPrompt(p: PromptParams): string {
     const speakerLine = p.speakerName ? `\n- Speaker's name: ${p.speakerName}` : '';
     const exampleBlock = p.exampleSpeech
@@ -171,6 +218,11 @@ DO NOT:
 Write ONLY the speech text. No titles, notes, or brackets. Stay within ${p.wordRange.min}-${p.wordRange.max} words.`;
 }
 
+/**
+ * Builds a Spanish-language wedding speech prompt
+ * @param p - Prompt parameters including role, approach, tone, word count, anecdotes, etc.
+ * @returns The formatted Spanish prompt string
+ */
 function buildSpanishPrompt(p: PromptParams): string {
     const speakerLine = p.speakerName ? `\n- Nombre del orador: ${p.speakerName}` : '';
     const exampleBlock = p.exampleSpeech
@@ -215,6 +267,11 @@ NO HAGAS:
 Escribe SOLO el texto del discurso. Sin títulos, notas ni corchetes. Mantente entre ${p.wordRange.min}-${p.wordRange.max} palabras. Usa español latino natural, NO traducido del inglés.`;
 }
 
+/**
+ * Formats the couple names for use in the prompt
+ * @param names - The raw couple names string
+ * @returns Formatted names or default "the happy couple"
+ */
 function coupleNamesFormatted(names: string): string {
     return names.trim() || 'the happy couple';
 }

@@ -125,6 +125,13 @@ const TONE_FALLBACK: Record<string, string> = {
     celebratory: 'mix',
 };
 
+/**
+ * Gets an example speech for the specified tone and language
+ * Used to provide a reference for tone and rhythm in the generated speech
+ * @param tone - The tone category (heartfelt, funny, formal, mix, witty, straightforward, celebratory)
+ * @param lang - The language code (en, es)
+ * @returns An example speech matching the tone and language, or null if tone not found
+ */
 export function getExampleForTone(tone: string, lang: string): string | null {
     const langExamples = EXAMPLES[lang] || EXAMPLES.en;
     return langExamples[tone] || langExamples[TONE_FALLBACK[tone]] || langExamples.mix || null;
