@@ -135,52 +135,59 @@ export default function InterviewChat({ formData, onComplete }: InterviewChatPro
     const totalQuestions = MAX_AI_TURNS;
 
     return (
-        <div className="interview-chat">
-            {/* Progress bar */}
-            <div className="interview-progress">
-                <span className="interview-progress-label">
-                    {t('progress', { current: Math.min(currentQuestion, totalQuestions), total: totalQuestions })}
-                </span>
-                <div className="interview-progress-bar">
-                    <div
-                        className="interview-progress-fill"
+        <div className="clean-interview">
+            {/* Progreso minimalista - sin números */}
+            <div className="clean-progress">
+                <div className="clean-progress-line">
+                    <div className="clean-progress-fill"
                         style={{ width: `${(currentQuestion / totalQuestions) * 100}%` }}
                     />
                 </div>
             </div>
 
-            {/* Message bubbles */}
-            <div className="interview-messages">
+            {/* Mensajes */}
+            <div className="clean-messages">
                 {messages.map((msg, idx) => (
-                    <div
-                        key={idx}
-                        className={`interview-bubble-wrap ${msg.role === 'user' ? 'bubble-user' : 'bubble-ai'}`}
-                    >
-                        {msg.role === 'model' && (
-                            <div className="bubble-avatar">V</div>
+                    <div key={idx} className="clean-message">
+                        {msg.role === 'model' ? (
+                            <div className="clean-message-ai-wrapper">
+                                <div className="clean-avatar">V</div>
+                                <div className="clean-message-content clean-message-ai">
+                                    {msg.content}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="clean-message-content clean-message-user">
+                                {msg.content}
+                            </div>
                         )}
-                        <div className={`interview-bubble ${msg.role === 'user' ? 'bubble-user-inner' : 'bubble-ai-inner'}`}>
-                            {msg.content || (isAiTyping && idx === messages.length - 1 ? (
-                                <span className="typing-dots">
-                                    <span />
-                                    <span />
-                                    <span />
-                                </span>
-                            ) : null)}
-                        </div>
                     </div>
                 ))}
 
-                {/* Typing indicator when AI hasn't added a bubble yet */}
+                {/* Typing indicator */}
+                {isAiTyping && messages[messages.length - 1]?.content === '' && (
+                    <div className="clean-message">
+                        <div className="clean-message-ai-wrapper">
+                            <div className="clean-avatar">V</div>
+                            <div className="clean-typing">
+                                <span>.</span>
+                                <span>.</span>
+                                <span>.</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Typing indicator when AI hasn't added a message yet */}
                 {isAiTyping && messages.length === 0 && (
-                    <div className="interview-bubble-wrap bubble-ai">
-                        <div className="bubble-avatar">V</div>
-                        <div className="interview-bubble bubble-ai-inner">
-                            <span className="typing-dots">
-                                <span />
-                                <span />
-                                <span />
-                            </span>
+                    <div className="clean-message">
+                        <div className="clean-message-ai-wrapper">
+                            <div className="clean-avatar">V</div>
+                            <div className="clean-typing">
+                                <span>.</span>
+                                <span>.</span>
+                                <span>.</span>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -190,29 +197,26 @@ export default function InterviewChat({ formData, onComplete }: InterviewChatPro
 
             {/* Error */}
             {error && (
-                <div className="interview-error">
+                <div className="clean-error">
                     {error}
-                    <button
-                        className="interview-retry"
-                        onClick={() => fetchAiResponse(messages)}
-                    >
+                    <button className="clean-retry" onClick={() => fetchAiResponse(messages)}>
                         {t('retry')}
                     </button>
                 </div>
             )}
 
-            {/* Input area or Complete CTA */}
+            {/* Input o CTA */}
             {isComplete ? (
-                <div className="interview-complete">
-                    <button className="btn-generate interview-cta" onClick={handleComplete}>
+                <div className="clean-complete">
+                    <button className="clean-complete-btn" onClick={handleComplete}>
                         {t('continueButton')}
                     </button>
                 </div>
             ) : (
-                <div className="interview-input-row">
+                <div className="clean-input-wrapper">
                     <textarea
                         ref={inputRef}
-                        className="interview-input"
+                        className="clean-input"
                         placeholder={t('inputPlaceholder')}
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
@@ -221,15 +225,11 @@ export default function InterviewChat({ formData, onComplete }: InterviewChatPro
                         rows={2}
                     />
                     <button
-                        className="interview-send"
+                        className="clean-send-btn"
                         onClick={handleSend}
                         disabled={!inputValue.trim() || isAiTyping}
-                        aria-label={t('send')}
                     >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13" />
-                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                        </svg>
+                        →
                     </button>
                 </div>
             )}
