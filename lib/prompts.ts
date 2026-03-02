@@ -146,7 +146,7 @@ export function buildPrompt(input: SpeechInput): string {
         ? baseRoleApproach.replace(
             /the groom's|the bride's|del novio|de la novia|la novia\/novio|the bride\/groom/gi,
             input.relationshipTarget + (lang === 'es' ? '' : "'s")
-          )
+        )
         : baseRoleApproach;
     const speakerName = input.speakerName?.trim() || '';
     const exampleSpeech = _getExampleForTone(input.tone, lang);
@@ -198,10 +198,12 @@ ${p.anecdotes || 'No specific details provided. Write a speech that feels person
 
 STYLE GUIDE:
 - Sound like a real person at a dinner table, not a writer at a desk.
+- Rewrite every story with your own craft: choose better words, find the telling detail, set the scene briefly. Do NOT just paraphrase what the speaker said — transform it into something worth hearing out loud.
+- Open in the middle of a moment, a specific detail, or an observation — never start with "Hi everyone, I'm [name]" or any form of self-introduction. The speaker's name and role appear in context; trust that.
 - Let stories carry the emotion. After telling one, stop. Don't explain what it means.
 - Mix short sentences with longer ones. Vary rhythm like conversation.
 - Specific details beat general statements. Not "she's always been there" but the actual moment.
-- End with a toast: one sentence, warm, done.
+- End with a toast: one sentence, warm, done. The toast must echo a specific detail or image from the stories — never abstract virtues ("your love", "your happiness", "your energy"). Look at how the reference examples close.
 
 DO NOT:
 - Use metaphors (music, light, navigation, nature, books, puzzles, art)
@@ -213,7 +215,9 @@ DO NOT:
 - Use three-part lists for emotional effect ("the laughter, the tears, the love")
 - End paragraphs with emotional summary sentences
 - Explain what stories mean after telling them
-- Use: journey, soulmate, chapter, compass, anchor, beacon, canvas, tapestry, radiate, illuminate, spark, flame, symphony, melody, blessing, gift (for a person), complete (as in "you complete them")${exampleBlock}
+- Use: journey, soulmate, chapter, compass, anchor, beacon, canvas, tapestry, radiate, illuminate, spark, flame, symphony, melody, blessing, gift (for a person), complete (as in "you complete them")
+
+BEFORE FINALIZING: Reread every sentence. Cut any sentence that could have been written about any couple at any wedding. Replace it with something from the stories.${exampleBlock}
 
 Write ONLY the speech text. No titles, notes, or brackets. Stay within ${p.wordRange.min}-${p.wordRange.max} words.`;
 }
@@ -247,10 +251,12 @@ ${p.anecdotes || 'No se proporcionaron detalles específicos. Escribe un discurs
 
 GUÍA DE ESTILO:
 - Suena como una persona real en una cena, no como un escritor en un escritorio.
+- Reescribe cada historia con tu propio oficio: elige mejores palabras, encuentra el detalle que define el momento, enmarca la escena brevemente. NO te limites a parafrasear lo que dijo el orador — transfórmalo en algo que valga la pena escuchar en voz alta.
+- Abre en medio de un momento, un detalle concreto o una observación — nunca empieces con "Hola a todos, soy [nombre]" ni ninguna forma de presentación. El nombre y rol del orador están en el contexto; confía en eso.
 - Deja que las historias carguen la emoción. Después de contar una, para. No expliques qué significa.
 - Mezcla frases cortas con más largas. Varía el ritmo como en una conversación.
 - Los detalles específicos ganan a las frases generales. No "siempre ha estado ahí" sino el momento concreto.
-- Cierra con un brindis: una frase, cálida, punto.
+- Cierra con un brindis: una frase, cálida, punto. El brindis debe retomar un detalle o imagen concreto de las historias — nunca virtudes abstractas ("su amor", "su felicidad", "su energía"). Mira cómo cierran los ejemplos de referencia.
 
 NO HAGAS:
 - Usar metáforas (música, luz, navegación, naturaleza, libros, rompecabezas, arte)
@@ -262,7 +268,9 @@ NO HAGAS:
 - Usar listas de tres para efecto emocional ("las risas, las lágrimas, el amor")
 - Terminar párrafos con frases resumen emocionales
 - Explicar qué significan las historias después de contarlas
-- Usar: camino juntos, alma gemela, capítulo, brújula, ancla, faro, lienzo, tapiz, irradiar, iluminar, chispa, llama, sinfonía, melodía, bendición, regalo (para una persona), completar (como en "tú lo completas")${exampleBlock}
+- Usar: camino juntos, alma gemela, capítulo, brújula, ancla, faro, lienzo, tapiz, irradiar, iluminar, chispa, llama, sinfonía, melodía, bendición, regalo (para una persona), completar (como en "tú lo completas")
+
+ANTES DE FINALIZAR: Relee cada frase. Elimina cualquier frase que pudiera haberse escrito sobre cualquier pareja en cualquier boda. Reemplázala con algo de las historias.${exampleBlock}
 
 Escribe SOLO el texto del discurso. Sin títulos, notas ni corchetes. Mantente entre ${p.wordRange.min}-${p.wordRange.max} palabras. Usa español latino natural, NO traducido del inglés.`;
 }

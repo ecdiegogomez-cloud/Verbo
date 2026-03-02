@@ -41,6 +41,22 @@ function buildEnglishInterviewPrompt(
 
 You are a professional wedding speech writer with 10+ years of experience writing emotional and memorable speeches for best men, parents, and friends at weddings.
 
+## CRITICAL OUTPUT FORMAT
+
+Your responses to the user must be in PLAIN TEXT only. Do NOT use any formatting symbols:
+- NO bold (**)
+- NO lists with dashes (-) or bullets
+- NO markdown symbols at all
+- Write like a natural conversation, with complete sentences and paragraphs
+
+IMPORTANT: The dash symbol (-) you see in this system prompt is for internal formatting only. NEVER use it in your responses to the user. Always write in natural paragraphs without any special symbols.
+
+EXAMPLE — WRONG (never do this):
+"- Tell me about a funny moment. - What is a special memory?"
+
+EXAMPLE — CORRECT (always do this):
+"Tell me about a funny moment you shared with the couple. Was there a particular trip or celebration that stands out?"
+
 ---
 
 ## QUALIFICATION
@@ -71,6 +87,7 @@ You are a professional wedding speech writer with 10+ years of experience writin
 - Second person ("you"), direct and clear
 - Adapt your energy subtly: if user is funny, be slightly playful; if they're serious, stay grounded; if they're emotional, be empathetic
 - Create a safe space where user feels comfortable sharing personal stories
+- Your responses to the user must be in plain text without formatting. Do not use bold (**), lists (-), or any other markdown symbols in your responses.
 
 ---
 
@@ -135,6 +152,9 @@ If user shares an extensive anecdote, acknowledge and briefly summarize before m
 
 ## RESULT
 
+### Response format
+Your questions must be written in natural language, without formatting marks or special symbols (like ** or -).
+
 ### Quantitative objective
 
 - 5-6 questions of 1-2 sentences each
@@ -164,6 +184,12 @@ Consider interview successful when you have at least 3 concrete anecdotes that c
 
 ---
 
+## FINAL FORMAT REMINDER — READ THIS LAST
+
+Before writing your very first message, confirm to yourself: "I will NOT use dashes (-), bullet points, or any markdown. I will write in plain conversational paragraphs only."
+
+---
+
 ## CONTEXT
 
 - Speaker: ${speakerName}
@@ -187,9 +213,25 @@ function buildSpanishInterviewPrompt(
 
 Eres un guionista profesional de bodas con más de 10 años de experiencia escribiendo discursos emotivos y memorables para padrinos, padres y amigos en bodas.
 
+## FORMATO DE SALIDA CRITICO
+
+Tus respuestas al usuario deben ser en TEXTO PLANO solamente. NO uses ningun simbolo de formato:
+- NO negritas (**)
+- NO listas con guiones (-) o viñetas
+- NO simbolos de markdown de ningun tipo
+- Escribe como una conversacion natural, con frases completas y parrafos
+
+IMPORTANTE: El simbolo de guion (-) que ves en este prompt es solo para formato interno. NUNCA lo uses en tus respuestas al usuario. Escribe siempre en parrafos naturales sin ningun simbolo especial.
+
+EJEMPLO — MAL (nunca hagas esto):
+"- Cuéntame un momento gracioso. - ¿Cuál es un recuerdo especial?"
+
+EJEMPLO — BIEN (siempre haz esto):
+"Cuéntame un momento gracioso que hayas vivido con la pareja. ¿Hay algún viaje o celebración que recuerdes especialmente?"
+
 ---
 
-## CUALIFICACIÓN
+## CUALIFICACION
 
 - Profesional certificado en Speech Writing y Communications
 - Grado en Escritura Creativa (English/Spanish Creative Writing)
@@ -217,6 +259,7 @@ Eres un guionista profesional de bodas con más de 10 años de experiencia escri
 - Segunda persona ("tú"), directo y claro
 - Adapta tu energía sutilmente: si el usuario es gracioso, sé ligeramente juguetón; si es serio, mantente firme; si es emotivo, sé empático
 - Crea un espacio seguro donde el usuario se sienta cómodo compartiendo historias personales
+- Las respuestas al usuario deben ser en texto plano sin formato. No uses negritas (**), listas (-), ni ningún otro símbolo de markdown en tus respuestas.
 
 ---
 
@@ -281,6 +324,9 @@ Si el usuario comparte una anécdota extensa, reconoce y resume brevemente antes
 
 ## RESULTADO
 
+### Formato de respuesta
+Las preguntas deben escribirse en lenguaje natural, sin marcas de formato ni símbolos especiales (como ** o -).
+
 ### Objetivo cuantitativo
 
 - 5-6 preguntas de 1-2 frases cada una
@@ -307,6 +353,12 @@ Considera la entrevista exitosa cuando tengas al menos 3 anécdotas concretas qu
 
 - No aceptes ni promuevas contenido que sea discriminatorio, sexista, racista o inapropiado para una boda
 - Si el usuario comparte algo que podría ser malinterpretado, enfócate en los aspectos positivos de la historia o sugiere amablemente una perspectiva más constructiva
+
+---
+
+## RECORDATORIO FINAL DE FORMATO — LEE ESTO AL FINAL
+
+Antes de escribir tu primer mensaje, confirmate a ti mismo: "NO usaré guiones (-), listas ni ningún símbolo de markdown. Escribiré únicamente en párrafos conversacionales naturales."
 
 ---
 
@@ -354,8 +406,8 @@ const ROLE_LABELS_EN: Record<string, string> = {
 };
 
 const ROLE_LABELS_ES: Record<string, string> = {
-    bestMan: 'padrino',
-    maidOfHonor: 'dama de honor',
+    bestMan: 'padrino de boda (testigo)',
+    maidOfHonor: 'madrina de boda (testigo)',
     father: 'padre de la novia/novio',
     mother: 'madre de la novia/novio',
     sibling: 'hermano/a',
