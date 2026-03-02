@@ -170,6 +170,8 @@ export default function GeneratorPage({ params }: { params: Promise<{ locale: st
                                         onRegenerate={handleRegenerate}
                                         onNewSpeech={handleNewSpeech}
                                         isLoading={isLoading}
+                                        speakerName={formData?.speakerName}
+                                        coupleNames={formData?.coupleNames}
                                     />
                                 </div>
                             )}
