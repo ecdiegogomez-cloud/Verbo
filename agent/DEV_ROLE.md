@@ -387,20 +387,36 @@ export async function generateSpeech(prompt: string): Promise<ReadableStream> {
 
 ```bash
 # Desarrollo
-npm run dev
+npm run dev                # Inicia servidor en modo desarrollo (hot reload)
+                           # Default: http://localhost:3000
 
 # Build
-npm run build
+npm run build              # Compila la aplicación para producción
 
 # Producción
-npm run start
+npm run start              # Inicia servidor en modo producción
+                           # Requiere haber ejecutado npm run build primero
 
 # Linting
-npm run lint
+npm run lint               # Ejecuta ESLint para verificar código
 
 # Audit de seguridad
-npm audit
-npm audit fix
+npm audit                  # Verifica vulnerabilidades en dependencias
+npm audit fix              # Intenta corregir vulnerabilidades automáticamente
+```
+
+### Comando Principal de Ejecución
+
+| Entorno | Comando | Descripción |
+|----------|---------|-------------|
+| **Desarrollo** | `npm run dev` | Servidor con hot reload en puerto 3000 |
+| **Producción** | `npm run build && npm start` | Build optimizado + servidor de producción |
+
+### Nota Importante
+
+Para **desarrollo local**, simplemente ejecuta:
+```bash
+npm run dev
 ```
 
 ---
